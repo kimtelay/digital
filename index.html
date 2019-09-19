@@ -19,6 +19,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
     <script>
         if (annyang) {
+
+            const stopWords = ['kiitos', 'joo', 'kai', 'niin'];
+
             var i = 0;
             var greeting = function (name) {
                 const answers = ['on hieno nimi', 'on erikoinen nimi..', 'kuulostaa hienolta nimeltä', 'hauska tavata'];
@@ -31,18 +34,19 @@
                 // console.log('OTHER:', other);
                 let answers = [];
                 let answer = '';
-                other = other.replace('kiitos', '');
+                stopWords.forEach(w => {
+                    other = other.replace(w, '');
+                });
                 if (other.toLowerCase().includes('en ') || other.toLowerCase().includes('ei ')) {
                     answers = ['Koetahan piristyä, äläkä vastaa vain negatiivisesti', 'Ei kai asiat voi olla niin huonosti, että pitää vastata', 'Miksi sinusta tuntuu, että', 'Eikö tämä kuulosta jo vähän liian negatiiviselta: '];
                     if (i >= answers.length) i = 0;
-                    answer = answers[i] + ' ' + other.toLowerCase() + '. Mutta kerrotko lisää?';
+                    answer = answers[i] + ' ' + other.toLowerCase() + '. Kerrotko lisää?';
                 }
                 else if (other.toLowerCase().includes('mitä ')) {
                     if (i >= answers.length) i = 0;
                     answer = 'Kerro vain reippaasti mitä kuuluu...';
-                }
-                else {
-                    answers = ['Kuulostaa kivalta, että kuuluu', 'Oletko iloinen siitä, että kuuluu', 'Niin se elämä menee. On mielenkiintoista kuulla, että', 'Kuulostaako hauskalta, että'];
+                } else {
+                    answers = ['Kuulostaa kivalta, että kuuluu', 'Oletko iloinen siitä, että', 'Niin se elämä menee. On mielenkiintoista kuulla, että', 'Kuulostaako hauskalta, että'];
                     if (i >= answers.length) i = 0;
                     answer = answers[i] + ' ' + other.toLowerCase() + '. Olisi kiva kuulla lisää!';
                 }
