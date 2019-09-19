@@ -1,22 +1,73 @@
-<html>
-    <head><title>Digital.fi</title></head>
+<html lang="fi">
+
+<head>
+    <meta charset='utf-8'>
+    <title>Digital.fi</title>
+    <style>
+        #page-container {
+            margin-top: 150px;
+            width: 800px;
+            margin: auto;
+        }
+        #greeting {
+            margin-top: 130px;
+            font-size: 60px;
+            color: blue;
+        }
+        #answer {
+            margin-top: 50px;
+            font-size: 60px;
+            color: red;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script>
+        if (annyang) {
+            var i = 0;
+            var greeting = function (name) {
+                const answers = ['on hieno nimi', 'on erikoinen nimi', 'kuulostaa hienolta nimeltä', 'hauska tavata!'];
+                const randomGreeting = answers[Math.floor(Math.random() * answers.length)];
+                document.getElementById('greeting').textContent = 'Hei! ' + name.toUpperCase() + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
+                annyang.removeCommands('(nimeni) (on) :name');
+            }
+
+            var other = function (other) {
+                console.log('OTHER:', other);
+                const answers = ['Kuulostaa kivalta, että kuuluu', 'Tuntuuko sinusta hyvältä, että kuuluu vain', 'Äitis oli', 'Kuulostaa hauskalta, että'];
+                const answer = answers[i] + ' ' + other + '. Kerrotko lisää?';
+                const answerContainer = document.getElementById('answer').textContent = answer;
+                i++;
+                if (i === answers.length) i = 0;
+            }
+
+            var commands = {
+                'hei': function () { document.getElementById('answer').textContent = 'KUKKUU!' },
+
+                // A named variable is a one word variable, that can fit anywhere in your command.
+                // e.g. saying "calculate October stats" will call calculateStats('October');
+                '(nimeni) (on) :name': greeting,
+
+                // By defining a part of the following command as optional, annyang will respond to both: "say hello to my little friend" as well as "say hello friend"
+
+                // capture anything after a splat (*) and pass it to the function.
+                // e.g. saying "Show me Batman and Robin" is the same as calling showFlickr('Batman and Robin');
+                '*other': other
+            };
+
+            // annyang.debug();
+            annyang.addCommands(commands);
+            annyang.setLanguage('fi');
+            // annyang.addCallback('resultMatch', createAnswer);
+            annyang.start();
+        };
+    </script>
+</head>
+
 <body>
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
-<script>
-if (annyang) {
-  // Let's define a command.
-  var commands = {
-    'hello': function() { alert('Hello there!'); },
-    'hei': function() { alert('Heippa!'); },
-    'hola': function() { alert('Hola!!'); }
-  };
-
-  // Add our commands to annyang
-  annyang.addCommands(commands);
-
-  // Start listening.
-  annyang.start();
-}
-</script>
+    <div id="page-container">
+        <div id="greeting">Kerrotko nimesi?</div>
+        <div id="answer"></div>
+    </div>
 </body>
+
 </html>
