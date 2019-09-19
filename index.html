@@ -16,6 +16,9 @@
             font-size: 60px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+    <script src="./tf.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
     <script>
         if (annyang) {
@@ -34,6 +37,7 @@
 
             var other = function (other) {
                 // console.log('OTHER:', other);
+                this.tox(other);
                 let answers = [];
                 let answer = '';
                 stopWords.forEach(w => {
@@ -74,6 +78,7 @@
 
             // annyang.debug();
             annyang.addCommands(commands);
+            annyang.setLanguage('en');
             annyang.setLanguage('fi');
             // annyang.addCallback('resultMatch', createAnswer);
             annyang.start();
@@ -85,6 +90,7 @@
     <div id="page-container">
         <div id="answer">Lausuisitko rohkeasti nimesi?</div>
     </div>
+    <div style="font-size: 16px">ps. Muistathan ihmisten ja koneiden välisen käyttäytymisetiketin. Älä varsinkaan käytä uhkaavaa kielenkäyttöä englanniksi.</div>
 </body>
 
 </html>
