@@ -41,7 +41,7 @@
                 if (other.toLowerCase().includes('en ') || other.toLowerCase().includes('ei ')) {
                     answers = ['Koetahan piristyä, äläkä vastaa vain negatiivisesti', 'Ei kai asiat voi olla niin huonosti, että pitää vastata', 'Miksi sinusta tuntuu, että', 'Eikö tämä kuulosta jo vähän liian negatiiviselta: '];
                     if (i >= answers.length) i = 0;
-                    answer = answers[i] + ' ' + other.toLowerCase() + '. Kerrotko lisää?';
+                    answer = answers[i] + ' ' + other.toLowerCase() + '. Onko todella näin?';
                 }
                 else if (other.toLowerCase().slice(0,5).includes('mitä ')) {
                     if (i >= answers.length) i = 0;
