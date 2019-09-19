@@ -24,13 +24,13 @@
 
             var i = 0;
             var greeting = function (name) {
+                if (name.length < 4) return;
                 const answers = ['on hieno nimi', 'on erikoinen nimi..', 'kuulostaa hienolta nimeltä', 'MOI'];
                 name = name.charAt(0).toUpperCase();
                 const randomGreeting = answers[Math.floor(Math.random() * answers.length)];
-                if (name.length > 3) {
-                  document.getElementById('answer').textContent = name + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
-                  annyang.removeCommands('(nimeni) (on) :name');
-                }
+                document.getElementById('answer').textContent = name + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
+                annyang.removeCommands('(nimeni) (on) :name');
+
             }
 
             var other = function (other) {
@@ -40,12 +40,13 @@
                 stopWords.forEach(w => {
                     other = other.replace(w, '');
                 });
+                if (other.length < 4) return;
                 if (other.toLowerCase().includes('en ') || other.toLowerCase().includes('ei ')) {
                     answers = ['Koetahan piristyä, äläkä vastaa vain negatiivisesti', 'Ei kai asiat voi olla niin huonosti, että pitää vastata', 'Miksi sinusta tuntuu, että', 'Eikö tämä kuulosta jo vähän liian negatiiviselta: '];
                     if (i >= answers.length) i = 0;
                     answer = answers[i] + ' ' + other.toLowerCase() + '. Onko todella näin?';
                 }
-                else if (other.toLowerCase().slice(0,5).includes('mitä ')) {
+                else if (other.toLowerCase().slice(0, 5).includes('mitä ')) {
                     if (i >= answers.length) i = 0;
                     answer = 'Kerro vain reippaasti mitä kuuluu...';
                 } else {
@@ -53,10 +54,8 @@
                     if (i >= answers.length) i = 0;
                     answer = answers[i] + ' ' + other.toLowerCase() + '. Olisi kiva kuulla lisää...';
                 }
-                if (other.length > 3) {
-                    const answerContainer = document.getElementById('answer').textContent = answer;
-                    i++;
-                }
+                const answerContainer = document.getElementById('answer').textContent = answer;
+                i++;
             }
 
             var commands = {
