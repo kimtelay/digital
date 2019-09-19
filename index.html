@@ -27,8 +27,10 @@
                 const answers = ['on hieno nimi', 'on erikoinen nimi..', 'kuulostaa hienolta nimeltä', 'MOI'];
                 name = name.charAt(0).toUpperCase();
                 const randomGreeting = answers[Math.floor(Math.random() * answers.length)];
-                document.getElementById('answer').textContent = name + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
-                annyang.removeCommands('(nimeni) (on) :name');
+                if (name.length > 3) {
+                  document.getElementById('answer').textContent = name + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
+                  annyang.removeCommands('(nimeni) (on) :name');
+                }
             }
 
             var other = function (other) {
