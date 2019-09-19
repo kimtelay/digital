@@ -24,7 +24,7 @@
 
             var i = 0;
             var greeting = function (name) {
-                const answers = ['on hieno nimi', 'on erikoinen nimi..', 'kuulostaa hienolta nimeltä', 'hauska tavata'];
+                const answers = ['on hieno nimi', 'on erikoinen nimi..', 'kuulostaa hienolta nimeltä', 'MOI'];
                 const randomGreeting = answers[Math.floor(Math.random() * answers.length)];
                 document.getElementById('answer').textContent = name.charAt(0).toUpperCase() + name.slice(1) + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
                 annyang.removeCommands('(nimeni) (on) :name');
