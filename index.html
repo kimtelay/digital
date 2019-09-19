@@ -42,7 +42,7 @@
                     if (i >= answers.length) i = 0;
                     answer = answers[i] + ' ' + other.toLowerCase() + '. Kerrotko lisää?';
                 }
-                else if (other.toLowerCase().includes('mitä ')) {
+                else if (other.toLowerCase().slice(0,5).includes('mitä ')) {
                     if (i >= answers.length) i = 0;
                     answer = 'Kerro vain reippaasti mitä kuuluu...';
                 } else {
@@ -50,8 +50,10 @@
                     if (i >= answers.length) i = 0;
                     answer = answers[i] + ' ' + other.toLowerCase() + '. Olisi kiva kuulla lisää...';
                 }
-                const answerContainer = document.getElementById('answer').textContent = answer;
-                i++;
+                if (other.length > 3) {
+                    const answerContainer = document.getElementById('answer').textContent = answer;
+                    i++;
+                }
             }
 
             var commands = {
