@@ -5,19 +5,15 @@
     <title>Digital.fi</title>
     <style>
         #page-container {
-            margin-top: 150px;
-            width: 800px;
-            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
         }
-        #greeting {
-            margin-top: 130px;
-            font-size: 60px;
-            color: blue;
-        }
+
         #answer {
-            margin-top: 50px;
+            max-width: 50%;
             font-size: 60px;
-            color: red;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
@@ -25,19 +21,33 @@
         if (annyang) {
             var i = 0;
             var greeting = function (name) {
-                const answers = ['on hieno nimi', 'on erikoinen nimi', 'kuulostaa hienolta nimeltä', 'hauska tavata!'];
+                const answers = ['on hieno nimi', 'on erikoinen nimi..', 'kuulostaa hienolta nimeltä', 'hauska tavata'];
                 const randomGreeting = answers[Math.floor(Math.random() * answers.length)];
-                document.getElementById('greeting').textContent = 'Hei! ' + name.toUpperCase() + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
+                document.getElementById('answer').textContent = name.charAt(0).toUpperCase() + name.slice(1) + ' ' + randomGreeting + '. Mitä kuuluu ' + name + '?';
                 annyang.removeCommands('(nimeni) (on) :name');
             }
 
             var other = function (other) {
-                console.log('OTHER:', other);
-                const answers = ['Kuulostaa kivalta, että kuuluu', 'Tuntuuko sinusta hyvältä, että kuuluu vain', 'Äitis oli', 'Kuulostaa hauskalta, että'];
-                const answer = answers[i] + ' ' + other + '. Kerrotko lisää?';
+                // console.log('OTHER:', other);
+                let answers = [];
+                let answer = '';
+                other = other.replace('kiitos', '');
+                if (other.toLowerCase().includes('en ') || other.toLowerCase().includes('ei ')) {
+                    answers = ['Koetahan piristyä, äläkä vastaa vain negatiivisesti', 'Ei kai asiat voi olla niin huonosti, että pitää vastata', 'Miksi sinusta tuntuu, että', 'Eikö tämä kuulosta jo vähän liian negatiiviselta: '];
+                    if (i >= answers.length) i = 0;
+                    answer = answers[i] + ' ' + other.toLowerCase() + '. Mutta kerrotko lisää?';
+                }
+                else if (other.toLowerCase().includes('mitä ')) {
+                    if (i >= answers.length) i = 0;
+                    answer = 'Kerro vain reippaasti mitä kuuluu...';
+                }
+                else {
+                    answers = ['Kuulostaa kivalta, että kuuluu', 'Oletko iloinen siitä, että kuuluu', 'Niin se elämä menee. On mielenkiintoista kuulla, että', 'Kuulostaako hauskalta, että'];
+                    if (i >= answers.length) i = 0;
+                    answer = answers[i] + ' ' + other.toLowerCase() + '. Olisi kiva kuulla lisää!';
+                }
                 const answerContainer = document.getElementById('answer').textContent = answer;
                 i++;
-                if (i === answers.length) i = 0;
             }
 
             var commands = {
@@ -65,8 +75,7 @@
 
 <body>
     <div id="page-container">
-        <div id="greeting">Kerrotko nimesi?</div>
-        <div id="answer"></div>
+        <div id="answer">Lausuisitko rohkeasti nimesi?</div>
     </div>
 </body>
 
