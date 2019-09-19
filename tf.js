@@ -1,6 +1,6 @@
 var tox = function (sentences) {  
 // The minimum prediction confidence.
-const threshold = 0.8;
+const threshold = 0.82;
 
 // Load the model. Users optionally pass in a threshold and an array of
 // labels to include.
@@ -17,7 +17,7 @@ console.log('SENTENCES:', sentences);
     
     predictions.forEach(prediction => {
         if (prediction.results[0].match && prediction.label !== 'toxicity') {
-            document.getElementById('answer').textContent = prediction.label.replace('_',' ').toUpperCase() + ' against the machine! Next time I will give you an electric shock.'
+            document.getElementById('answer').textContent = prediction.label.replace('_',' ').toUpperCase() + ' against the machine! Next time I will give you an electric shock. Now shut up!'
         }
     })
 
