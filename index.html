@@ -51,7 +51,7 @@
                 } else {
                     answers = ['Kuulostaa kivalta, että', 'Oletko iloinen siitä, että', 'Niin se elämä menee. On mielenkiintoista kuulla, että', 'Kuulostaako hauskalta, että'];
                     if (i >= answers.length) i = 0;
-                    answer = answers[i] + ' ' + other.toLowerCase() + '. Olisi kiva kuulla lisää...';
+                    answer = answers[i] + ' ' + other.toLowerCase() + '.';
                 }
                 const answerContainer = document.getElementById('answer').textContent = answer;
                 i++;
